@@ -1,0 +1,21 @@
+####### Split file in half ##########
+
+import pandas as pd
+
+# Load your file (replace 'your_file.csv' with your filename)
+df = pd.read_csv('SDUD-2021.csv')
+
+# Find midpoint
+midpoint = len(df) // 2
+
+# Split into two halves
+first_half = df.iloc[:midpoint]
+second_half = df.iloc[midpoint:]
+
+# Save both halves
+first_half.to_csv('SDUD-2021_1.csv', index=False)
+second_half.to_csv('SDUD-2021_2.csv', index=False)
+
+print("File split into first_half.csv and second_half.csv")
+
+------------------------------------------------------------------------------------------------------------------------------------------
