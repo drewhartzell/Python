@@ -1,0 +1,44 @@
+# NFL Scraping #
+
+import pandas as pd
+
+# URL ---
+url = 'https://www.pro-football-reference.com/years/2024/advanced.htm'
+
+# Read tables from the URL by their IDs
+air_yards_df = pd.read_html(url, header=1, attrs={'id': 'air_yards'})[0]
+accuracy_df = pd.read_html(url, header=1, attrs={'id': 'accuracy'})[0]
+pressure_df = pd.read_html(url, header=1, attrs={'id': 'pressure_sh'})[0]
+
+folder_path = 'C:/Users/andre/OneDrive/Desktop/BI Files/NFL/'
+
+air_yards_df.to_csv(folder_path + 'nfl_passing_air_data_2024.csv', index=False, header=True)
+accuracy_df.to_csv(folder_path + 'nfl_passing_accuracy_2024.csv', index=False, header=True)
+pressure_df.to_csv(folder_path + 'nfl_passing_pressure_2024.csv', index=False, header=True)
+
+print(air_yards_df)
+print(accuracy_df)
+print(pressure_df)
+
+print("Data saved to nfl_passing_air_data_2024.csv")
+print("Data saved to nfl_passing_accuracy_data_2024.csv")
+print("Data saved to nfl_passing_pressure_data_2024.csv")
+
+//
+//
+
+import pandas as pd
+
+url = 'https://www.pro-football-reference.com/years/2024/advanced.htm'
+off_df = pd.read_html(url, header=0, attrs={'id': 'advanced_rushing'})[0]
+
+# Default null values to 0 ---
+off_df = off_df.fillna(0)
+
+# Remove last 3 rows ---
+# off_df = off_df.iloc[:-3]
+
+print(off_df)
+off_df.to_csv('C:/Users/andre/OneDrive/Desktop/BI Files/NFL/nfl_rushing_data_2024.csv', index=False, header=True)
+print("Data saved to nfl_advanced_rushing_2024.csv")
+
