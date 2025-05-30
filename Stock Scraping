@@ -1,3 +1,5 @@
+# Old Script #
+
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -21,7 +23,6 @@ def get_key_statistics(ticker):
     data["Ticker"] = ticker.upper()
     return data
 
-# Get stats for AAPL and CCL
 tickers = ['AAPL', 'CCL', 'MSFT', 'TSLA', 'PYPL', 'SNOW', 'TEAM', 'HOOD', 'BABA', 'TM', 'META','BA', 'MAR', 'RCL']
 all_data = []
 
@@ -29,21 +30,22 @@ for ticker in tickers:
     stats = get_key_statistics(ticker)
     all_data.append(stats)
 
-# Convert list of dicts to DataFrame
 df = pd.DataFrame(all_data)
 
-# Move Ticker to the first column
 cols = ['Ticker'] + [col for col in df.columns if col != 'Ticker']
 df = df[cols]
 
-# Save to CSV
 df.to_csv("stocks.csv", index=False)
 
-print("✅ Saved key statistics for 'stocks.csv'")
+print("Saved key statistics for 'stocks.csv'")
 
 
 --------------------------------------------------------------------------------------------------------------
 
+# Updated Stock Scraping #
+
+# Additional notes: addition of market sentiment analysis, i.e., Greed Index sentiment
+# When market sentiment is low/fearful && ticker price < 200d moving average then significant buying opportunity
 
 import requests
 from bs4 import BeautifulSoup
@@ -51,17 +53,6 @@ import pandas as pd
 import yfinance as yf
 import re
 
-# Convert shorthand finance values like 40.6B to full numbers
-# def convert_shorthand(value):
-    # if isinstance(value, str):
-       # multipliers = {'T': 1e12, 'B': 1e9, 'M': 1e6, 'K': 1e3}
-       # match = re.match(r'([\d\.]+)([TBMK])?', value.replace(',', ''))
-       # if match:
-           # num, suffix = match.groups()
-           # return int(float(num) * multipliers.get(suffix, 1))
-   # return value
-
-# Scrape key statistics using BeautifulSoup
 def get_key_statistics(ticker):
     url = f'https://finance.yahoo.com/quote/{ticker}/key-statistics?p={ticker}'
     headers = {'User-Agent': 'Mozilla/5.0'}
@@ -80,7 +71,7 @@ def get_key_statistics(ticker):
                 data[label] = value
     return data
 
-# Use yfinance to add additional fields
+# Add additional fields not locally in key statistics ---
 def get_yfinance_data(ticker):
     stock = yf.Ticker(ticker)
     info = stock.info
@@ -95,7 +86,6 @@ def get_yfinance_data(ticker):
         "Sentiments": info.get("recommendationKey")
     }
 
-# Combine both data sources
 def get_full_stock_data(ticker):
     stats_data = get_key_statistics(ticker)
     yf_data = get_yfinance_data(ticker)
@@ -106,22 +96,20 @@ def get_full_stock_data(ticker):
             combined[k] = v
     return combined
 
-# List of tickers to fetch
+# Update for additional tickers for analysis ---
 tickers = ['AAPL', 'CCL', 'MSFT', 'TSLA', 'PYPL', 'SNOW', 'TEAM', 'HOOD', 'BABA', 'TM', 'META','BA', 'MAR', 'RCL',
            'DAL', 'T', 'RYCEY', 'NIO', 'ERJ', 'COIN', 'PLTR', 'DOCU', 'DASH', 'QQQ', 'VOO', 'DKNG', 'NVDA', 'SCHD',
            'NVO', 'ENPH', 'OSCR', 'AMD', 'CMG', 'HIMS', 'SOFI', 'NU', 'DBX', 'MSA', 'UNC']
 
-# Collect data
 all_data = []
 for ticker in tickers:
     try:
         data = get_full_stock_data(ticker)
         all_data.append(data)
-        print(f"✅ Pulled data for {ticker}")
+        print(f"Pulled data for {ticker}")
     except Exception as e:
-        print(f"❌ Error pulling data for {ticker}: {e}")
+        print(f"Error pulling data for {ticker}: {e}")
 
-# Create and save DataFrame
 df = pd.DataFrame(all_data)
 df.to_csv("stocks all.csv", index=False)
-print("✅ Saved all stock data to 'stocks all.csv'")
+print("Saved all stock data to 'stocks all.csv'")
