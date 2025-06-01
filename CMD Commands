@@ -9,5 +9,15 @@ C:\Users\xxxxx\AppData\Local\Programs\Python>cd Python313 -- etc.
 
 pip install pandas
 pip show pandas
-
 pip install matplotlib
+python -m pip install pandas matplotlib
+python -m pip install scikit-learn prophet
+
+
+//
+//
+
+where python
+which python
+python -m site
+python -m pip list
