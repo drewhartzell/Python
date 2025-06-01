@@ -1,0 +1,13 @@
+# For Command Prompt navigation #
+
+cd Navigate to directory:
+C:\Users\xxxxx\AppData>cd Local
+C:\Users\xxxxx\AppData\Local\Programs\Python>cd Python313 -- etc.
+
+//
+//
+
+pip install pandas
+pip show pandas
+
+pip install matplotlib
