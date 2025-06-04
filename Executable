@@ -4,7 +4,7 @@ from cx_Freeze import setup, Executable
 extra_scripts = ["biometrics load v2.py", "enrollment load v2.py", "point solution load.py", "pharmacy load v2.py", "medical load v2.py"]
 
 # List of images and any additional required files
-extra_files = ["Inn. Logo (no back).png", "Innovu Text v2.png", "Mapping Logo.ico"]
+extra_files = ["Inn. Logo (no back).png", "X Text v2.png", "Mapping Logo.ico"]
 
 # Combine everything
 include_files = extra_scripts + extra_files
