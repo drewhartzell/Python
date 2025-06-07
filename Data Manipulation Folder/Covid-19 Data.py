@@ -38,3 +38,25 @@ print(f"USA, by total, all ages mentions: {num_mentions}")
 # plt.xlabel("Condition")
 # plt.ylabel("Deaths")
 # plt.show()
+
+#
+# seaborn
+
+# plt.figure(figsize=(10, 6))
+# sns.barplot(data=df, x='Condition', y='COVID-19 Deaths', color='skyblue')
+# plt.title('Condition by Deaths')
+# plt.xlabel("Condition")
+# plt.ylabel("Deaths")
+# plt.xticks(rotation=45)
+# plt.tight_layout()
+# plt.show()
+
+plt.figure(figsize=(10, 6))
+plt.bar(df['Condition Group'], df['COVID-19 Deaths'], color='skyblue')
+plt.title('Condition by Deaths')
+plt.xlabel("Condition")
+plt.ylabel("Deaths")
+plt.xticks(rotation=45)  # Optional: rotate x labels if they're long
+plt.tight_layout()
+plt.show()
+
