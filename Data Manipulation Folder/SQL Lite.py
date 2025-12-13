@@ -1,16 +1,11 @@
 import pandas as pd
 import sqlite3
 
-# Load your CSV into a pandas DataFrame
 df = pd.read_csv('Covid_data.csv')
-
-# Create an in-memory SQLite database
 conn = sqlite3.connect(':memory:')
 
-# Load DataFrame into the SQLite database
 df.to_sql('my_table', conn, index=False, if_exists='replace')
 
-# Run your SQL query
 query = """
 SELECT 
     "Condition Group", 
@@ -28,8 +23,26 @@ HAVING
 ORDER BY Total_Deaths DESC
 """
 
-# Execute and fetch results
 result_df = pd.read_sql_query(query, conn)
+print(result_df)
 
-# Show result
+##
+##
+
+import pandas as pd
+import sqlite3
+
+df = pd.read_csv('Etsy Items Combined.csv')
+conn = sqlite3.connect(':memory:')
+
+df.to_sql('my_table', conn, index=False, if_exists='replace')
+
+query = """
+
+SELECT
+    SUM("Price") AS "Total_Price"
+FROM my_table
+"""
+
+result_df = pd.read_sql_query(query, conn)
 print(result_df)
